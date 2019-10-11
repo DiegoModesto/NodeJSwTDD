@@ -1,0 +1,35 @@
+{
+  "name": "dockernode",
+  "version": "1.0.0",
+  "description": "Tests",
+  "main": "server.js",
+  "scripts": {
+    "pretest": "cross-env NODE_ENV=test sequelize db:migrate",
+    "test": "cross-env NODE_ENV=test jest",
+    "posttest": "cross-env NODE_ENV=test sequelize db:migrate:undo:all",
+    "dev": "nodemon src/server.js --ignore __testes__",
+    "start": "node src/server.js"
+  },
+  "author": "Diego",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "factory-girl": "^5.0.4",
+    "faker": "^4.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.7.4",
+    "pg": "^7.12.1",
+    "sequelize": "^5.19.5",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "cross-env": "^6.0.3",
+    "jest": "^24.9.0",
+    "nodemon": "^1.19.3",
+    "sequelize-cli": "^5.5.1",
+    "sqlite3": "^4.1.0",
+    "supertest": "^4.0.2"
+  }
+}

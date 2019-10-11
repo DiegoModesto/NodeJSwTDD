@@ -1,0 +1,29 @@
+version: "3"
+
+networks:
+  localdev:
+    driver: bridge
+
+services:
+  dbServer:
+    image: postgres
+    container_name: "dbServer"
+    environment:
+      POSTGRES_PASSWORD: "Postgres2019!"
+    ports:
+      - "15432:5432"
+    networks:
+      - localdev
+
+  pgAdmin:
+    image: dpage/pgadmin4
+    container_name: "pgAdmin"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "diego@diego.com"
+      PGADMIN_DEFAULT_PASSWORD: "PgAdmin2019!"
+    ports:
+      - "16543:80"
+    depends_on:
+      - dbServer
+    networks:
+      - localdev
