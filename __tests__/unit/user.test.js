@@ -1,8 +1,6 @@
-const bcrypt = require('bcryptjs')
-const uuid = require('uuid/v4')
-
-const { User } = require('../../src/app/models')
-
+const request = require('supertest')
+const app = require('../../src/app')
+const factory = require('../factories')
 const truncate = require('../utils/truncate')
 
 describe('User', () => {
@@ -10,15 +8,20 @@ describe('User', () => {
         await truncate()
     })
 
-    it('should encrypt user password', async () => {
-        const user = await User.create({
-            id: uuid(),
-            name: 'Diego',
-            email: 'diegosanches89@gmail.com',
-            password: '123456'
+    it('should dosent insert user has have email in system', async () => {
+        const user = await factory.create('UserFactory', {
+            email: 'diegosanches89@gmail.com'
         })
-        const compareHash = await bcrypt.compare('123456', user.password_hash)
 
-        expect(compareHash).toBe(true)
+        const response = await request(app)
+            .post('/sessions/create')
+            .send({
+                name: user.name,
+                email: user.email,
+                password: user.password,
+                retype_password: user.password
+            })
+
+        expect(response.status).toBe(500)
     })
 })

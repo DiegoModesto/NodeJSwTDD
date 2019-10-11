@@ -1,4 +1,5 @@
 const request = require('supertest')
+const faker = require('faker')
 const truncate = require('../utils/truncate')
 const app = require('../../src/app')
 
@@ -80,5 +81,24 @@ describe('Authentication', () => {
 
 
         expect(response.status).toBe(401)
+    })
+
+    //User creation
+    it('should return JWT when user is created', async () => {
+        const fakePassword = faker.internet.password()
+        const fakeUser = {
+            name: faker.name.findName(),
+            email: faker.internet.email(),
+            password: fakePassword,
+            retype_password: fakePassword
+        }
+        console.log('User =>>>>>>>>>>>>>>>>>>>>>>>>>', fakeUser)
+        const response = await request(app)
+            .post('/sessions/create')
+            .send(fakeUser)
+
+        console.log('Response =>>>>>>>>>>>>>>>>>>>>>>', response.body)
+        
+        expect(response.body).toHaveProperty('token')
     })
 })

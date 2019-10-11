@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const uuid = require('uuid/v4')
 
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('User', {
@@ -12,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
             beforeSave: async user => {
                 if(user.password)
                     user.password_hash = await bcrypt.hash(user.password, 8)
+                if(!user.id)
+                    user.id = uuid()
             }
         }
     })
