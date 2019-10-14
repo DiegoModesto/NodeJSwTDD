@@ -6,7 +6,9 @@ const { check } = require('express-validator')
 routes.get('/', (req, res) => {
     return res.json({ message: 'teste '})
 })
-routes.post('/sessions', SessionController.store)
+routes.post('/sessions', [
+    check('email', '_EMAIL_DONT_MATCH_').isEmail(),
+],  SessionController.store)
 routes.post('/sessions/create', [
     check('name', '_NAME_DONT_MATCH_').matches(/^(?=.*[a-zA-Z0-9])/g),
     check('name', '_NAME_IS_TOO_SHORT_').isLength({ min: 5 }),

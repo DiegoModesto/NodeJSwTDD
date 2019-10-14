@@ -7,7 +7,7 @@ This is initial tempalte to TDD a little project at NodeJS.
 
 #Use .Env file to work with Database .Env: APP_SECRET=123
 
-DB_HOST=0.0.0.0 DB_PORT=15432 DB_USER=postgres DB_PASS=Postgres2019! DB_NAME=nodeauth
+DATABASE_URL=0.0.0.0 DB_PORT=15432 DB_USER=postgres DB_PASS=Postgres2019! DB_NAME=nodeauth
 
 .Env.test: APP_SECRET=123Test
 

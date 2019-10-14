@@ -3,15 +3,19 @@ const { validationResult } = require('express-validator')
 
 class SessionController{
     async store(req, res){
+        console.log('Searching User')
         const { email, password } = req.body
+        console.log('Body request', `Email: ${email} -> Password: ${password}`)
         const user = await User.findOne({ where: { email }})
-
+        console.log('User: ', user)
+        
         if(!user)
             return res.status(401).json({ message: '_USER_NOT_FOUND_' })
         
         if(!(await user.checkPassword(password)))
             return res.status(401).json({ message: '_USER_OR_PASS_INCORRECT_'})
 
+            console.log('Its returned')
         return res.status(200).send({ user, token: user.generateToken() })
     }
 
