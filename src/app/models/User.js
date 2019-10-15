@@ -9,6 +9,9 @@ module.exports = (sequelize, DataTypes) => {
         password: DataTypes.VIRTUAL,
         password_hash: DataTypes.STRING(50)
     }, {
+        freezeTableName: true,
+        modelName: 'User',
+        tableName: 'User',
         hooks: {
             beforeSave: async user => {
                 if(user.password)
