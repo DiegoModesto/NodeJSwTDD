@@ -11,7 +11,7 @@ module.exports = {
   dialect: process.env.DB_DIALECT || 'postgres',
   protocol: 'postgres',
   dialectOptions: {
-    ssl: true
+    ssl: false
   },
   storage: './__tests__/database.sqlite',
   logging: false,

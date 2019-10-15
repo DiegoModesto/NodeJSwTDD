@@ -10,4 +10,10 @@ factory.define('UserFactory', User, {
     password: faker.internet.password()
 })
 
+factory.define('MarkFactory', Pointer, {
+    id: uuid(),
+    date: faker.date.future(),
+    user_id: uuid()
+})
+
 module.exports = factory

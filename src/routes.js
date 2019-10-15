@@ -1,5 +1,6 @@
 const routes = require('express').Router()
 const SessionController = require('./app/controllers/SessionControllers')
+const MarkController = require('./app/controllers/MarkController')
 const authMiddleware = require('./app/middleware/auth')
 const { check } = require('express-validator')
 
@@ -27,5 +28,9 @@ routes.post('/sessions/create', [
 /*authenticates*/
 routes.use(authMiddleware)
 routes.get('/dashboard', (req, res) => { return res.status(200).json() })
+
+routes.post('/mark/create', [
+
+], MarkController.create)
 
 module.exports = routes
